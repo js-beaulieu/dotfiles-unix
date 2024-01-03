@@ -1,0 +1,2 @@
+export NODE_VERSION_PREFIX=v
+export NODE_VERSIONS="$NVM_DIR/versions/node"
