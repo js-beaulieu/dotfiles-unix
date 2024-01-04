@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if command -v starship &> /dev/null; then
+    echo "Starship prompt is already installed"
+else
+    # dependencies
+    echo "Installing dependencies..."
+    sudo apt update
+    sudo apt install -y curl
+
+    echo "Installing starship prompt..."
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+fi
