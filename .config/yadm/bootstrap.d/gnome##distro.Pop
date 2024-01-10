@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+echo "Disabling hot corners"
+gsettings set org.gnome.desktop.interface enable-hot-corners false
+
