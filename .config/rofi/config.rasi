@@ -1,0 +1,20 @@
+configuration {
+  font: "IBM Plex Sans Medium 10";
+  show-icons: true;
+  icon-theme: "Papirus";
+
+  run {
+    display-name: "";
+  }
+
+  window {
+    display-name: "";
+  }
+
+  timeout {
+    delay: 10;
+    action: "kb-cancel";
+  }
+}
+
+@theme "onedark"

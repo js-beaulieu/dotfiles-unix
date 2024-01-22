@@ -1,0 +1,64 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+
+  bg: #282C34;
+  fg: #ABB2BF;
+  blue: #61AFEF;
+  blue-alt: #61AFEF15;
+  red: #E06C75;
+  red-alt: #E06C7515;
+
+  background-color: transparent;
+  text-color: @fg;
+}
+
+window {
+  transparency: "real";
+  width: 600px;
+  background-color: @bg;
+  border: 10px;
+  border-color: @bg;
+}
+
+mainbox {
+  children: [inputbar, listview];
+}
+
+inputbar {
+  border: 0 0 0 1px;
+  border-color: @blue;
+  children: [entry];
+  margin: 0 0 10px 0;
+}
+
+entry {
+  background-color: @blue-alt;
+  padding: 10px;
+  text-color: @blue;
+}
+
+listview {
+  lines: 12;
+}
+
+element {
+  border: 0 0 0 1px;
+  children: [element-text];
+}
+
+element selected {
+  border-color: @red;
+}
+
+element-text {
+  padding: 6px 10px;
+  background-color: transparent;
+}
+
+element-text selected {
+  background-color: @red-alt;
+  text-color: @red;
+}
