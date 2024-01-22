@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -e
+shopt -s globstar
+
+# Print yadm configuration
+get_from_etc_osrelease() {
+    local FIELD_NAME="$1"
+    local VALUE=$(grep "^$FIELD_NAME=" /etc/os-release | cut -d= -f2- | tr -d '"')
+    echo $VALUE
+}
+echo
+echo "--------------------------------------------------"
+echo "| YADM configuration"
+echo "| arch: $(uname -m)"
+echo "| class: $(yadm config local.class)"
+echo "| classes: $(yadm config ‑‑get‑all local.class 2> /dev/null)"
+echo "| distro: $(lsb_release -si || get_from_etc_osrelease ID)"
+echo "| distro_family: $(get_from_etc_osrelease ID_LIKE)"
+echo "| hostname: $(uname -n)"
+echo "| os: $(uname -s)"
+echo "| user: $(id -u -n)"
+echo "--------------------------------------------------"
+echo
+
+# Load boostrap files
+echo "Bootstrapping system"
+BOOTSTRAP_D="${BASH_SOURCE[0]}.d"
+find -L "$BOOTSTRAP_D" -type f | sort | while IFS= read -r bootstrap; do
+    if [[ -x "$bootstrap" && ! "$bootstrap" =~ "##" && ! "$bootstrap" =~ "~$" ]]; then
+        echo
+        echo "Executing '$bootstrap'..."
+        echo "------------------------------------------------------------"
+        if ! "$bootstrap"; then
+            echo "ERROR: bootstrap '$bootstrap' failed" >&2
+            exit 1
+        fi
+        echo "------------------------------------------------------------"
+        echo
+    fi
+done
