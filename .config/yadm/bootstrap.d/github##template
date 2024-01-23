@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if ! command -v gh &> /dev/null; then
+    echo "Installing gh"
+{% if yadm.distro == "Pop" %}
+    sudo apt update -y
+    sudo apt install -y gh
+{% endif %}
+{% if yadm.distro_family == "arch" %}
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --noconfirm --needed github-cli
+{% endif %}
+
+    echo "Installing gh-cli extensions"
+    gh extension install https://github.com/nektos/gh-act || true
+else
+    echo "gh already installed"
+fi
+

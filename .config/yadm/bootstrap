@@ -9,19 +9,22 @@ get_from_etc_osrelease() {
     local VALUE=$(grep "^$FIELD_NAME=" /etc/os-release | cut -d= -f2- | tr -d '"')
     echo $VALUE
 }
-echo
-echo "--------------------------------------------------"
-echo "| YADM configuration"
-echo "| arch: $(uname -m)"
-echo "| class: $(yadm config local.class)"
-echo "| classes: $(yadm config ‑‑get‑all local.class 2> /dev/null)"
-echo "| distro: $(lsb_release -si || get_from_etc_osrelease ID)"
-echo "| distro_family: $(get_from_etc_osrelease ID_LIKE)"
-echo "| hostname: $(uname -n)"
-echo "| os: $(uname -s)"
-echo "| user: $(id -u -n)"
-echo "--------------------------------------------------"
-echo
+
+if command -v yadm &> /dev/null; then
+    echo
+    echo "--------------------------------------------------"
+    echo "| YADM configuration"
+    echo "| arch: $(uname -m)"
+    echo "| class: $(yadm config local.class)"
+    echo "| classes: $(yadm config ‑‑get‑all local.class 2> /dev/null)"
+    echo "| distro: $(lsb_release -si || get_from_etc_osrelease ID)"
+    echo "| distro_family: $(get_from_etc_osrelease ID_LIKE)"
+    echo "| hostname: $(uname -n)"
+    echo "| os: $(uname -s)"
+    echo "| user: $(id -u -n)"
+    echo "--------------------------------------------------"
+    echo
+fi
 
 # Load boostrap files
 echo "Bootstrapping system"

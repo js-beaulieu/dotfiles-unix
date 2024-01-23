@@ -5,8 +5,14 @@ if command -v starship &> /dev/null; then
 else
     # dependencies
     echo "Installing dependencies..."
-    sudo apt update
+{% if yadm.distro_family == "debian" %}
+    sudo apt update -y
     sudo apt install -y curl
+{% endif %}
+{% if yadm.distro_family == "arch" %}
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --noconfirm --needed curl
+{% endif %}
 
     echo "Installing starship prompt..."
     curl -sS https://starship.rs/install.sh | sh -s -- --yes

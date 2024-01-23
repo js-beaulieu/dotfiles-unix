@@ -4,14 +4,20 @@ set -e
 
 FONT_NAME="Iosevka"
 FONTS_DIR="$HOME/.local/share/fonts"
-TARGET_DIR="$FONTS_DIR/$FONT_NAME"
+TARGET_DIR="${FONTS_DIR}/${FONT_NAME}_NerdFont"
 
 if [ -d "$TARGET_DIR" ]; then
     echo "$FONT_NAME Nerd Font is already installed."
 else
+{% if yadm.distro_family == "debian" %}
     # install dependencies
-    sudo apt update
+    sudo apt update -y
     sudo apt install -y wget
+{% endif %}
+{% if yadm.distro_family == "arch" %}
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --noconfirm --needed wget
+{% endif %}
 
     # download from github releases
     WORKING_DIR=$(mktemp -d)

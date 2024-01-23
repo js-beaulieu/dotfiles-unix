@@ -4,8 +4,14 @@ if command -v yadm &> /dev/null; then
     echo "yadm is already installed"
 else
     echo "Installing yadm"
+{% if yadm.distro_family == "debian" %}
     sudo apt update
     sudo apt install -y yadm
+{% endif %}
+{% if yadm.distro_family == "arch" %}
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --noconfirm --needed yadm
+{% endif %}
 fi
 
 CURRENT_ORIGIN_URL=$(yadm remote get-url origin)

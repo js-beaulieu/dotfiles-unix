@@ -6,8 +6,14 @@ if command -v poetry &> /dev/null; then
     echo "poetry is already installed"
 else
     echo "Install dependencies"
-    sudo apt update
+{% if yadm.distro_family == "debian" %}
+    sudo apt update -y
     sudo apt install -y python3 python-is-python3 pipx
+{% endif %}
+{% if yadm.distro_family == "arch" %}
+    sudo pacman -Syu --noconfirm
+    sudo pacman -S --noconfirm --needed python python-pipx
+{% endif %}
 
     echo "Install poetry"
     pipx install poetry

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+{% if yadm.distro_family == "debian" %}
+echo "Install packages"
+sudo apt update -y
+echo "TODO: load package list from file"
+{% endif %}
+
+{% if yadm.distro_family == "arch" %}
+echo "Update packages"
+sudo pacman -Syu --noconfirm
+if ! command -v yay &> /dev/null; then
+    echo "TODO: install yay automatically"
+fi
+
+echo "Install packages"
+sudo pacman -S --needed - < "$HOME"/.config/yadm/bootstrap.d/packages.pacman.txt
+{% endif %}
+
