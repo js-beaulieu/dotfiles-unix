@@ -1,17 +1,15 @@
 #!/usr/bin/env zsh
 
-ROOT_DIR="$HOME/.config/zsh/conf.d"
+ROOT_DIR="$HOME/.config/yadm/bootstrap.d"
 
 function yep() {
     if command -v yay &> /dev/null; then
-        echo "TODO: export aur packages with yay"
-    fi
-    if command -v pacman &> /dev/null; then
-        FILE="$ROOT_DIR/packages.pacman.txt"
-        echo "Exporting pacman packages to $FILE..."
-        sudo pacman -Qqetn > "$FILE"
+        FILE="$ROOT_DIR/packages.arch.txt"
+        echo "Exporting 'yay' packages to '$FILE...'"
+        yay -Qqet > "$FILE"
     fi
     if command -v apt &> /dev/null; then
-        echo "TODO: export apt package"
+        FILE="$ROOT_DIR/packages.apt.txt"
+        echo "TODO: Exporting 'apt' packages to '$FILE...'"
     fi
 }

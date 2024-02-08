@@ -1,8 +1,26 @@
-alias cat="batcat"
 alias ssh="kitty +kitten ssh"
 alias ls="exa"
+alias vim="nvim"
 
 # Create a directory and cd into it
+function __find_first_executable() {
+    local command_list=("$@")
+    for cmd in "${command_list[@]}"; do
+        if command -v "$cmd" > /dev/null 2>&1; then
+            echo "$cmd"
+            return 0
+        fi
+    done
+
+    echo "No executable found in the list."
+    return 1
+}
+
+function cat() {
+    executable=$(__find_first_executable "bat" "batcat" "cat")
+    $executable "$@"
+}
+
 function mcd() {
     mkdir -p "$1" && cd "$1"
 }

@@ -13,7 +13,9 @@ function ssh-fix-permissions() {
 		["$SSH_DIR/config"]=600
 		["$SSH_DIR/known_hosts"]=644
 		["$SSH_DIR/id_rsa"]=600
+		["$SSH_DIR/id_ed25519"]=600
 		["$SSH_DIR/id_rsa.pub"]=644
+		["$SSH_DIR/id_ed25519.pub"]=644
 	)
 	echo "Fixing permissions on $SSH_DIR..."
 

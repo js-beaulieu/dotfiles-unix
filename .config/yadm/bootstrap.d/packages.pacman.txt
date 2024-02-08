@@ -1,5 +1,0 @@
-direnv
-neovim
-python-pynvim
-tmux
-zsh

@@ -1,3 +1,6 @@
+# zsh options
+setopt autocd
+
 # auto install antidote plugin manager
 ANTIDOTE_DIR="$HOME/.local/share/antidote"
 if [ ! -d "$ANTIDOTE_DIR" ]; then
